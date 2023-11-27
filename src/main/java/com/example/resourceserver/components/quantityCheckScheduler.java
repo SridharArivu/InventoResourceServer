@@ -57,8 +57,10 @@ public class quantityCheckScheduler {
 
 
 
+        List<String> Body = new ArrayList<>();
+
         for (String clientID: ClientIdList) {
-            List<String> Body = new ArrayList<>();
+
             List<Product> productList = repository.findAllByClientId(clientID);
             for (Product p: productList) {
                 if (p.getQuantity() <= 50){
@@ -71,24 +73,9 @@ public class quantityCheckScheduler {
                 HttpEntity<List<String>> requestEntity = new HttpEntity<>(Body, headers);
                 ResponseEntity<String> responseEntity = restTemplate.postForEntity(url.getUrl(), requestEntity, String.class);
             }
+            Body.clear();
         }
 
-
-//        List<String> BodyData = new ArrayList<>();
-//
-//        for (Product prod: productList ) {
-//
-//            if (prod.getQuantity() <= 50){
-//
-//                BodyData.add(prod.getTitle() + ": " + prod.getQuantity());
-//            }
-//        }
-//        if (!BodyData.isEmpty() ){
-//            HttpEntity<List<String>> requestEntity = new HttpEntity<>(BodyData, headers);
-//            ResponseEntity<String> responseEntity = restTemplate.postForEntity(url, requestEntity, String.class);
-//        }
-
-//        return Body;
 
     }
 }
